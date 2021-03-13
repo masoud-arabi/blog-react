@@ -1,10 +1,10 @@
 import { createStore } from 'redux';
+import {applyMiddleware} from 'redux';
+import apimiddleware from './middleware';
+import postRedaucer from '../../Post/reducer/postReducer';
 
 
-const fakeReducer = (state={name:'fakename'}, action) => {
-    return state;
-};
 
- const store = createStore(fakeReducer);
+ const store = createStore(postRedaucer, applyMiddleware(apimiddleware) );
  
  export default store;
