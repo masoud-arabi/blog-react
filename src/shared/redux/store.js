@@ -1,5 +1,4 @@
-import { createStore } from 'redux';
-import {applyMiddleware} from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import apimiddleware from './middleware';
 import postRedaucer from '../../Post/reducer/postReducer';
 

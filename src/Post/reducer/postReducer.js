@@ -2,7 +2,7 @@ import {Types} from '../actions/ActionType';
 
 const initState ={
     error: null,
-    post: [],
+    posts: [],
     fetching: false,
 };
 
@@ -11,21 +11,22 @@ function PostReducer(state = initState, action){
         case Types.FETCH_POST:
             return{
                 ...state,
-                fetching:true,
+                fetching: true,
             };
-        case Types.FETCH_POST_SUCCES:
+
+        case Types.FETCH_POST_SUCCESFUL:
             return{
                 ...state,
                 fetching:false,
-                post: action.data
-            }
+                posts: action.data
+            };
         
-        case Types.FETCH_POST_FAILED:
+        case Types.FETCH_POST_FAIL:
             return{
                 ...state,
                 fetching:false,
                 error: action.error,
-            }
+            };
         default:
             return state;
     }

@@ -9,26 +9,25 @@ const handleSuccess = ({ response, next, type}) =>{
     });
 };
 
-const handleFailed = ({ error, next, type}) =>{
+const handleFailed = ({ error, type, next}) =>{
     next({
-        error,
-        type
+        type,
+        error
     });
 };
 
 
 const apimiddleware = store => next => action =>{
     const { isEndPointCall, type } = action;
+
     if(isEndPointCall){
         next({type});
         const {method, typeSucces, typeFail} = action;
         axios(`${baseUrl}${action.endPoint}`,{ 
             method
-         }).then(response=> {
-             handleSuccess({response, type: typeSucces, next})
-         }).catch(error => {
-            handleFailed({error, type: typeFail, next})
-         });
+         })
+         .then(response=> handleSuccess({response, type: typeSucces, next}))
+         .catch(error => handleFailed({error, type: typeFail, next}));
     } else {
         next(action);
     }
