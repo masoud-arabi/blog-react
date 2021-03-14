@@ -5,7 +5,8 @@ const baseUrl = 'http://localhost:3004/';
 const handleSuccess = ({ response, next, type}) =>{
     next({
         data: response.data,
-        type
+        type,
+        ...response,
     });
 };
 

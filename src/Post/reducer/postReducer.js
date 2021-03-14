@@ -3,6 +3,7 @@ import {Types} from '../actions/ActionType';
 const initState ={
     error: null,
     posts: [],
+    count: 0,
     fetching: false,
 };
 
@@ -15,8 +16,13 @@ function PostReducer(state = initState, action){
             };
 
         case Types.FETCH_POST_SUCCESFUL:
+            console.log(action);
+            const { 
+                headers: { ["x-total-count"]: count }
+            } = action;
             return{
                 ...state,
+                count,
                 fetching:false,
                 posts: action.data
             };
