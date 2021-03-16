@@ -4,9 +4,9 @@ import {PostListRoot} from './styled.components';
 
 
 
-const PostList = ({posts}) =>
+const PostList = ({posts, deletePost}) =>
     <PostListRoot>
-        {posts.map(post => <PostItem key={post.id} post={post}/>)}
+        {posts.map(post => <PostItem key={post.id} deletePost={deletePost} post={post}/>)}
     </PostListRoot>
 
 export default PostList;

@@ -10,6 +10,13 @@ export const PostListRoot = styled.div`
         margin: 10px;
         box-shadow: 2px 2px 4px #000;
 
+        footer{
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+
+        }
+
     }
 `;
 
@@ -28,7 +35,7 @@ export const PaginationRoot = styled.div`
     padding: 10px;
     display: flex;
     justify-content: flex-end;
-    align-items: cemter;
+    align-items: center;
 
     .page{
         margin:0 5px;

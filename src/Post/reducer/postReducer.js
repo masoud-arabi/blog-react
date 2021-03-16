@@ -5,6 +5,8 @@ const initState ={
     posts: [],
     count: 0,
     fetching: false,
+    deleting: false,
+    deleteError: null,
 };
 
 function PostReducer(state = initState, action){
@@ -18,7 +20,7 @@ function PostReducer(state = initState, action){
         case Types.FETCH_POST_SUCCESFUL:
             console.log(action);
             const { 
-                headers: { ["x-total-count"]: count }
+                headers:{ ["x-total-count"]: count }
             } = action;
             return{
                 ...state,
@@ -33,6 +35,27 @@ function PostReducer(state = initState, action){
                 fetching:false,
                 error: action.error,
             };
+
+        case Types.DELETE_POST:
+            return{
+                ...state,
+                deleting:true,
+            };
+
+        case Types.DELETE_POST_SUCCESFUL:
+            return{
+                ...state,
+                deleting:false,
+                posts: state.posts.filter( post => post.id !== action.id ),
+            };
+
+        case Types.FETCH_POST_FAIL:
+            return{
+                ...state,
+                deleting:false,
+                deleteError: action.error,
+            };
+
         default:
             return state;
     }

@@ -10,7 +10,7 @@ const Pagination = ({ page = 1, limit, onPageChange, count}) => {
 
        <button disabled={ page === 1 } onClick={onPrevClick}>{'<'}</button>
        <div className='page'>{page}</div>
-       <button disabled={ page * limit > 100} onClick={onNextClick}>{'>'}</button>
+       <button disabled={ page * limit >= count } onClick={onNextClick}>{'>'}</button>
    </PaginationRoot>
     );
 };

@@ -11,3 +11,15 @@ export const fetchPosts = ({_limit, _page}) => {
         method: 'GET',
     };
 };
+
+export const deletePosts = id => {
+    return {
+        type: Types.DELETE_POST,
+        typeSucces: Types.DELETE_POST_SUCCESFUL,
+        typeFail: Types.DELETE_POST_FAIL,
+        isEndPointCall: true,
+        endPoint:`posts/${id}`,
+        method: 'DELETE',
+        reduxData: {id}
+    };
+};
