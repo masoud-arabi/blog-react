@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import {connect} from 'react-redux';
-import {fetchPosts, deletePosts} from './actions/ActionPost';
+import {fetchPosts, deletePostAndFetch} from './actions/ActionPost';
 import PostList from './components/PostList';
 import {PostHeader} from '../Post/components/styled.components';
 import Pagination from '../Post/components/Pagination';
@@ -23,12 +23,12 @@ class PostsContainer extends Component {
     
     onPageChange = newPage => this.setState({ _page: newPage }, this.fetchPosts);
 
-    deletePost = () => this.props.deleting()
+    deletePosts = (id) => this.props.deletePostAndFetch(id, this.filters);
 
     render() { 
-        const {posts, count, deletePosts} = this.props;
+        const {posts, count} = this.props;
         const {_limit, _page} = this.state;
-        const {onPageChange} = this;
+        const {onPageChange, deletePosts} = this;
         const pagination = <Pagination count={count} onPageChange={onPageChange} page={_page} limit={_limit}/>;
         return ( 
             <div>
@@ -38,7 +38,6 @@ class PostsContainer extends Component {
                 {pagination}
                     <PostList deletePost={deletePosts} posts={posts}/>
                 {pagination}
-             
             </div>
          );
     }
@@ -52,7 +51,7 @@ const mapStateToProps = ({ posts, fetching, error, count}) => ({
 });
 const mapDispatchToProps = {
     fetchPosts,
-    deletePosts,
+    deletePostAndFetch,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostsContainer);

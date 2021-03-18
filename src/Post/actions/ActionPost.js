@@ -1,7 +1,7 @@
 
 import {Types} from './ActionType';
 
-export const fetchPosts = ({_limit, _page}) => {
+export const fetchPosts = ({_page, _limit}) => {
     return {
         type: Types.FETCH_POST,
         typeSucces: Types.FETCH_POST_SUCCESFUL,
@@ -21,5 +21,15 @@ export const deletePosts = id => {
         endPoint:`posts/${id}`,
         method: 'DELETE',
         reduxData: {id}
+    };
+};
+
+export const deletePostAndFetch = (id, filters)=>{
+    return dispatch =>{
+        dispatch(deletePosts(id)).then(response =>{
+            if (response.status === 200){
+                dispatch(fetchPosts(filters));
+            }
+        });
     };
 };
