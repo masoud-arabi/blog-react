@@ -2,7 +2,7 @@ import React from 'react';
 
 
 const PostItem = ({post, deletePost}) =>{
-    const onclickDelete = () =>{
+    const onClickDelete = () =>{
         if(window.confirm('are you sure?')){
             deletePost(post.id);
         }
@@ -11,7 +11,7 @@ const PostItem = ({post, deletePost}) =>{
         <h3>{post.title}</h3>
         <p>{post.body}</p>
         <footer>
-            <button onClick={onclickDelete}>
+            <button onClick={onClickDelete}>
                 delete
             </button>
         </footer>
