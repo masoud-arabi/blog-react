@@ -25,16 +25,17 @@ const handleFailed = ({ error, type, next}) =>{
 };
 
 
-const apimiddleware = store => next => action =>{
-    const { isEndPointCall, type, reduxData={} } = action;
+const apimiddleware = store => next => action => {
+    const { isEndPointCall, type, reduxData={} , data={}} = action;
 
     if(isEndPointCall){
         next({type});
         const {method, typeSucces, typeFail} = action;
         return axios(`${baseUrl}${action.endPoint}`,{ 
-            method
+            method,
+            data
          })
-         .then(response=> handleSuccess({response, type: typeSucces, next, reduxData}))
+         .then(response => handleSuccess({response, type: typeSucces, next, reduxData}))
          .catch(error => handleFailed({error, type: typeFail, next}));
     } else {
         next(action);

@@ -1,22 +1,21 @@
-import React,{Component} from 'react';
+import React,{Component, useState} from 'react';
 import {connect} from 'react-redux';
-import {fetchPosts, deletePostAndFetch} from './actions/ActionPost';
+import {fetchPosts, deletePostAndFetch, editPostAndFetch} from './actions/ActionPost';
 import PostList from './components/PostList';
 import {PostHeader} from '../Post/components/styled.components';
 import Pagination from '../Post/components/Pagination';
 
 class PostsContainer extends Component {
-   state = {
-       _limit: 5, _page: 1
-   };
+   state = {_page: 1, _limit: 5 };
 
-    componentDidMount(){
+
+    componentDidMount() {
         this.fetchPosts();
     }
 
     get Filters(){
         const { _limit, _page} = this.state;
-        return {_limit, _page};
+        return {_page, _limit};
     }
 
     fetchPosts = () => this.props.fetchPosts(this.Filters);
@@ -25,18 +24,22 @@ class PostsContainer extends Component {
 
     deletePosts = (id) => this.props.deletePostAndFetch(id, this.filters);
 
+    editPost = (postObject) => this.props.editPostAndFetch(postObject, this.filters);
+
+    
+
     render() { 
         const {posts, count} = this.props;
         const {_limit, _page} = this.state;
-        const {onPageChange, deletePosts} = this;
-        const pagination = <Pagination count={count} onPageChange={onPageChange} page={_page} limit={_limit}/>;
+        const {onPageChange, deletePosts, editPost} = this;
+        const pagination = <Pagination count={count} onPageChange={onPageChange} _page={_page} _limit={_limit}/>;
         return ( 
             <div>
                 <PostHeader>
                     <h1>post</h1>
                 </PostHeader>
                 {pagination}
-                    <PostList deletePost={deletePosts} posts={posts}/>
+                    <PostList deletePost={deletePosts} editPost={editPost} posts={posts}/>
                 {pagination}
             </div>
          );
@@ -52,6 +55,7 @@ const mapStateToProps = ({ posts, fetching, error, count}) => ({
 const mapDispatchToProps = {
     fetchPosts,
     deletePostAndFetch,
+    editPostAndFetch,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostsContainer);

@@ -10,6 +10,32 @@ export const PostListRoot = styled.div`
         margin: 10px;
         box-shadow: 2px 2px 4px #000;
 
+        .editDiv{
+            display: flex;
+            flex-direction: column;
+
+            input{
+                margin:0 auto;
+                margin-bottom:10px;
+                width: 50%;
+                font-size: 14px;
+            }
+            textarea{
+                margin:0 auto;
+                margin-bottom:10px;
+                width: 50%;
+                font-size: 14px;
+            }
+            button{
+                margin:0 auto;
+
+                text-align:center;
+                width: 50px;
+            }
+
+        }
+
+
         footer{
             display: flex;
             justify-content: flex-end;
