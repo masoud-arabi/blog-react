@@ -1,4 +1,5 @@
 import React,{useState} from 'react';
+import { Link } from 'react-router-dom';
 
 
 const PostItem = ({post, deletePost, editPost}) =>{
@@ -42,8 +43,10 @@ const PostItem = ({post, deletePost, editPost}) =>{
    <div className="postitem">
         { !isEditMode && (
             <>
-            <h3>{post.title}</h3>
-            <p>{post.body}</p>
+                <Link to={`/post/${post.id}`} key={post.id}>
+                    <h3>{post.title}</h3>
+                </Link>
+                <p>{post.body}</p>
             </>
         )}
 
