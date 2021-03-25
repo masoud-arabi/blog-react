@@ -1,7 +1,7 @@
 
 import {Types} from './ActionType';
 
-export const fetchPosts = (_page, _limit ) => {
+export const fetchPosts = ({_page, _limit} ) => {
     return {
         type: Types.FETCH_POST,
         typeSucces: Types.FETCH_POST_SUCCESFUL,
@@ -51,6 +51,29 @@ export const editPostAndFetch = (postObject, Filters)=>{
         dispatch(editPost(postObject)).then(response=>{
             if (response.status === 200){
                 dispatch(fetchPosts(Filters));
+            }
+        });
+    };
+};
+
+
+export const savePost = postObject => {
+    return {
+        type: Types.SAVE_POST,
+        typeSucces: Types.SAVE_POST_SUCCESFUL,
+        typeFail: Types.SAVE_POST_FAIL,
+        isEndPointCall: true,
+        endPoint:`posts`,
+        method: 'POST',
+        data: postObject,
+    };
+};
+
+export const savePostAndFetch = (postObject, filters) =>{
+    return dispatch=>{
+        dispatch(savePost(postObject)).then(response=>{
+            if(response.status === 201){
+                dispatch(fetchPosts(filters));
             }
         });
     };

@@ -1,9 +1,10 @@
-import React,{Component, useState} from 'react';
+import React,{Component} from 'react';
 import {connect} from 'react-redux';
-import {fetchPosts, deletePostAndFetch, editPostAndFetch} from './actions/ActionPost';
+import {fetchPosts, deletePostAndFetch, editPostAndFetch, savePostAndFetch} from './actions/ActionPost';
 import PostList from './components/PostList';
 import {PostHeader} from '../Post/components/styled.components';
 import Pagination from '../Post/components/Pagination';
+import NewPostModal from '../Post/components/AddPost/NewPostModal';
 
 class PostsContainer extends Component {
    state = {_page: 1, _limit: 5 };
@@ -26,18 +27,19 @@ class PostsContainer extends Component {
 
     editPost = (postObject) => this.props.editPostAndFetch(postObject, this.filters);
 
-    
+    savePost = (postObject) => this.props.savePostAndFetch(postObject, this.filters);
 
     render() { 
         const {posts, count} = this.props;
         const {_limit, _page} = this.state;
-        const {onPageChange, deletePosts, editPost} = this;
+        const {onPageChange, deletePosts, editPost, savePost} = this;
         const pagination = <Pagination count={count} onPageChange={onPageChange} _page={_page} _limit={_limit}/>;
         return ( 
             <div>
                 <PostHeader>
                     <h1>post</h1>
                 </PostHeader>
+                <NewPostModal savePost={savePost} />
                 {pagination}
                     <PostList deletePost={deletePosts} editPost={editPost} posts={posts}/>
                 {pagination}
@@ -56,6 +58,7 @@ const mapDispatchToProps = {
     fetchPosts,
     deletePostAndFetch,
     editPostAndFetch,
+    savePostAndFetch,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostsContainer);
